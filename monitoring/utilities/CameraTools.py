@@ -10,7 +10,9 @@ class CameraTools(object):
     Tools for working with Pi Camera.
     """
 
-    ### Pi Camera Settings
+    ### Pi Camera Default Settings
+    # https://www.raspberrypi.org/documentation/raspbian/applications/camera.md
+
     # camera.sharpness = 0
     # camera.contrast = 0
     # camera.brightness = 50
@@ -53,15 +55,37 @@ class CameraTools(object):
         #     ' -rot 0' \
         # subprocess.call(cmd, shell=True)
         # time.sleep(4)
-        camera = picamera.PiCamera()
-        # Set filename for photo
-        camera.capture(self.photo_path + 'photo_' + self.timestamp + self.photo_format)
+        with picamera.PiCamera() as camera:
+            # Set filename for photo
+            camera.capture(self.photo_path + 'photo_' + self.timestamp + self.photo_format)
 
-    def timelapse(self):
+    def timelapse(self, duration, interval):
         """
         Record timelapse with Pi Camera.
         """
         # Use raspistill timelapse functionality
+        # http://picamera.readthedocs.org/en/release-1.10/recipes1.html#capturing-timelapse-sequences
+
+        # camera.resolution = (1280, 720)
+        # camera.framerate = 30
+        # Wait for the automatic gain control to settle
+        # time.sleep(2)
+        # Now fix the values
+        # camera.shutter_speed = camera.exposure_speed
+        # camera.exposure_mode = 'off'
+        # g = camera.awb_gains
+        # camera.awb_mode = 'off'
+        # camera.awb_gains = g
+        # Finally, take several photos with the fixed settings
+        # camera.capture_sequence(['image%02d.jpg' % i for i in range(10)])
+
+        # with picamera.PiCamera() as camera:
+        #     camera.start_preview()
+        #     time.sleep(2)
+        #     for filename in camera.capture_continuous('img{counter:03d}.jpg'):
+        #         print('Captured %s' % filename)
+        #         # Wait 5 minutes
+        #         time.sleep(interval)
         pass
 
     def video(self, duration):
@@ -72,10 +96,10 @@ class CameraTools(object):
         #     ' -o' \
         #     self.video_path
         # subprocess.call(cmd, shell=True)
-        camera = picamera.PiCamera()
-        # Set filename for video
-        camera.start_recording(self.video_path + 'video_' + self.timestamp + self.video_format)
-        # Record for the duration
-        time.sleep(int(duration))
-        # Stop video recording
-        camera.stop_recording()
+        with picamera.PiCamera() as camera:
+            # Set filename for video
+            camera.start_recording(self.video_path + 'video_' + self.timestamp + self.video_format)
+            # Record for the duration
+            time.sleep(int(duration))
+            # Stop video recording
+            camera.stop_recording()
