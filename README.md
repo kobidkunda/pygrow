@@ -23,6 +23,19 @@ Usage
 
 Use Ansible to install on Raspberry Pi running Raspbian or Ubuntu Mate.
 
+Ensure Pi Camera is enabled:
+[https://www.raspberrypi.org/documentation/usage/camera/README.md](https://www.raspberrypi.org/documentation/usage/camera/README.md)
+
+Test raspistill CLI tool (1 photo):
+```
+$ raspistill -o test-photo.jpg
+```
+
+Test raspivid CLI tool (5 second video):
+```
+$ raspivid -o test-video.h264 -t 10000
+```
+
 
 Materials
 ---------

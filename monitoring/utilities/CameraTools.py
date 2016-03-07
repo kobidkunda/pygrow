@@ -66,6 +66,7 @@ class CameraTools(object):
         """
         # Use raspistill timelapse functionality
         # http://picamera.readthedocs.org/en/release-1.10/recipes1.html#capturing-timelapse-sequences
+        # https://www.raspberrypi.org/documentation/usage/camera/raspicam/timelapse.md
 
         # camera.resolution = (1280, 720)
         # camera.framerate = 30
