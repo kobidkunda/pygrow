@@ -1,7 +1,17 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+
+def validate_only_one_instance(object):
+    """
+    Validate that only one instance of a model exists.
+    """
+    model = object.__class__
+    if (model.objects.count() > 0 and object.id != model.objects.get().id):
+        raise ValidationError('Only one instance of model %s allowed.' % model.__name__)
 
 
 #
@@ -26,6 +36,19 @@ class Camera(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.name)
+
+    def clean(self):
+        """
+        Only allow one instance of Camera model.
+        """
+        validate_only_one_instance(self)
+
+    def save(self, *args, **kwargs):
+        super(Camera, self).save(*args, **kwargs)
+        self.full_clean()
+        if not self.name:
+            self.name = 'Camera' + str(self.id)
+            self.save()
 
 
 class CameraSettings(models.Model):
@@ -114,6 +137,16 @@ class CameraSettings(models.Model):
         ]
     )
 
+    def clean(self):
+        """
+        Only allow one instance of CameraSettings model.
+        """
+        validate_only_one_instance(self)
+
+    def save(self, *args, **kwargs):
+        super(CameraSettings, self).save(*args, **kwargs)
+        self.full_clean()
+        self.save()
 
 #
 ### Temperature Sensor and Temperature Settings
@@ -139,10 +172,17 @@ class TemperatureSensor(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
+    def clean(self):
+        """
+        Only allow one instance of TemperatureSensor model.
+        """
+        validate_only_one_instance(self)
+
     def save(self, *args, **kwargs):
         super(TemperatureSensor, self).save(*args, **kwargs)
+        self.full_clean()
         if not self.name:
-            self.name = 'TempSensor' + str(self.id)
+            self.name = 'TemperatureSensor' + str(self.id)
             self.save()
 
 
@@ -155,6 +195,17 @@ class TemperatureSensorSettings(models.Model):
         choices=MEASUREMENT_TYPES,
         max_length=1
     )
+
+    def clean(self):
+        """
+        Only allow one instance of TemperatureSensorSettings model.
+        """
+        validate_only_one_instance(self)
+
+    def save(self, *args, **kwargs):
+        super(TemperatureSensorSettings, self).save(*args, **kwargs)
+        self.full_clean()
+        self.save()
 
 #
 ### Humidity Sensor and Humidity Settings
@@ -180,8 +231,15 @@ class HumiditySensor(models.Model):
     def __unicode__(self):
         return u'%s' % (self.name)
 
+    def clean(self):
+        """
+        Only allow one instance of HumiditySensor model.
+        """
+        validate_only_one_instance(self)
+
     def save(self, *args, **kwargs):
         super(HumiditySensor, self).save(*args, **kwargs)
+        self.full_clean()
         if not self.name:
             self.name = 'HumiditySensor' + str(self.id)
             self.save()

@@ -8,14 +8,13 @@ Features
 --------
 
 - Use Pi Camera for monitoring
-- Use Pi Camera for photos
-- Use Pi Camera for timelapses
+- Use Pi Camera for saved videos
+- Use Pi Camera for saved photos
+- Use Pi Camera for saved timelapses
 - Use DHT temperature sensor for monitoring
 - Use DHT humidity sensor for monitoring
 - Store photos/videos on device
 - Store sensor data in database
-- Add management for groups and permissions
-- Add user accounts and logins
 
 
 Usage
@@ -59,6 +58,8 @@ To Do
 - Add photo capability with raspistill
 - Add timelapse capability with raspistill
 - Add video capability with raspivid
+- Add management for groups and permissions
+- Add user accounts and logins
 - Add email alerts/notifications (Django emails)
 - Add SMS alerts/notifications (Twilio)
 
