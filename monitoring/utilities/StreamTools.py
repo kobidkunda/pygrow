@@ -15,25 +15,27 @@ class StreamTools(object):
         self.stream_length = 60
 
     def stream(self):
-        # Connect a client socket to server:port (localhost:7777)
-        client_socket = socket.socket()
-        client_socket.connect((self.stream_server, self.stream_port))
+        """
+        Stream Pi Camera video over socket.
+        """
+        with picamera.PiCamera() as camera:
+            camera.resolution = (640, 480)
+            camera.framerate = 24
 
-        # Make a file-like object out of the connection
-        connection = client_socket.makefile('wb')
-        try:
-            with picamera.PiCamera() as camera:
-                camera.resolution = (640, 480)
-                camera.framerate = 24
-                # Start a preview and let the camera warm up for 2 sec
-                # camera.start_preview()
-                time.sleep(2)
+            # Create socket on server:port (localhost:7777)
+            server_socket = socket.socket()
+            server_socket.bind((self.stream_server, self.stream_port))
+            server_socket.listen(0)
+
+            # Accept a single connection and make a file-like object out of it
+            connection = server_socket.accept()[0].makefile('wb')
+            try:
                 # Start video recording
                 camera.start_recording(connection, format=self.stream_type)
                 # Send the output to the connection for the length of the stream
                 camera.wait_recording(self.stream_length)
                 # Stop video recording
                 camera.stop_recording()
-        finally:
-            connection.close()
-            client_socket.close()
+            finally:
+                connection.close()
+                server_socket.close()
