@@ -64,6 +64,7 @@ To Do
 - Add user accounts and logins
 - Add email alerts/notifications (Django emails)
 - Add SMS alerts/notifications (Twilio)
+- Add scheduled photos by email
 
 
 Author

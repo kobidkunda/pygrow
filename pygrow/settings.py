@@ -12,14 +12,26 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Load sensitive variables from secrets.py (.gitignore)
+# Load sensitive variables from secrets.py (make sure it's in .gitignore)
 from secrets import *
+
+
+###############################################################################
+### PyGrow Settings
+###############################################################################
+
+PYGROW_VERSION = 'v0.0.1'
 
 ### Sensitive variable in secrets.py
 # PYGROW_SERVER_IP = ''
 
 ### Sensitive variable in secrets.py
 # PYGROW_STREAM_PORT = ''
+
+
+###############################################################################
+### Security Settings
+###############################################################################
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -31,11 +43,12 @@ from secrets import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# TEMPLATE_DEBUG = True
+ALLOWED_HOSTS = []
 
-# TEMPLATE_DIRS = (
-#     (BASE_DIR + '/monitoring/templates/'),
-# )
+
+###############################################################################
+### Template Settings
+###############################################################################
 
 TEMPLATES = [
     {
@@ -60,10 +73,10 @@ TEMPLATES = [
     },
 ]
 
-ALLOWED_HOSTS = []
 
-
-# Application definition
+###############################################################################
+### Application Settings
+###############################################################################
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -74,6 +87,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'monitoring',
+    'django_cron',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,7 +105,10 @@ ROOT_URLCONF = 'pygrow.urls'
 WSGI_APPLICATION = 'pygrow.wsgi.application'
 
 
-# Database
+###############################################################################
+### Database Settings
+###############################################################################
+
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
@@ -101,7 +118,11 @@ DATABASES = {
     }
 }
 
-# Internationalization
+
+###############################################################################
+### Internationalization Settings
+###############################################################################
+
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -115,7 +136,10 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+###############################################################################
+### Static Files Settings
+###############################################################################
+
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_ROOT = BASE_DIR + '/static/'
@@ -126,7 +150,29 @@ STATICFILES_DIRS = [
     BASE_DIR + '/assets/',
 ]
 
-# Boostrap3 settings
+
+###############################################################################
+### Email Settings
+###############################################################################
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = 'sender@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'gmail-application-token'
+
+EMAIL_PORT = 587
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+###############################################################################
+### Bootstrap3 Settings
+###############################################################################
 
 # Default settings
 BOOTSTRAP3 = {
@@ -189,3 +235,14 @@ BOOTSTRAP3 = {
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }
+
+
+###############################################################################
+### Django-cron Settings
+###############################################################################
+
+CRON_CLASSES = [
+    'monitoring.jobs.EmailAlertCronJob',
+    'monitoring.jobs.EmailPhotoCronJob',
+    'monitoring.jobs.DHTReaderCronJob',
+]

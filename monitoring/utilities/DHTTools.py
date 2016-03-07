@@ -18,7 +18,7 @@ class DHTTools(object):
         # Return a string representing the integer value of the string passed to this function in base 2 (binary)
         return str(int(string_num, 2))
 
-    def read_dht_sensor(self):
+    def read_sensor(self):
         """
         Read temperature and humidity from DHT sensor.
         """
