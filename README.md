@@ -7,11 +7,11 @@ A Python and Django project to monitor an environment with a Raspberry Pi using 
 Features
 --------
 
-- Use camera for monitoring
-- Use camera for photos
-- Use camera for timelapses
-- Use temperature sensor for monitoring
-- Use humidity sensor for monitoring
+- Use Pi Camera for monitoring
+- Use Pi Camera for photos
+- Use Pi Camera for timelapses
+- Use DHT temperature sensor for monitoring
+- Use DHT humidity sensor for monitoring
 - Store photos/videos on device
 - Store sensor data in database
 - Add management for groups and permissions
@@ -21,29 +21,33 @@ Features
 Usage
 -----
 
-Use Ansible to install on Raspberry Pi.
+Use Ansible to install on Raspberry Pi running Raspbian or Ubuntu Mate.
 
 
 Materials
 ---------
 
+Base:
+
 - Raspberry Pi 2 Model B or 3 Model B
 - microSD card with Raspbian or Ubuntu Mate
 - 5V micro USB power cable
 
+Peripherals:
+
 - Raspberry Pi camera
-- DHT11 or DHT22 temperature/humidity sensor
+- DHT11 or DHT22 temperature/humidity sensor w/ cable
 
 
 To Do
 -----
 
-- Put camera/temp/humidity status in the sidebar
+- Add camera/temp/humidity status in the sidebar
 - Add photo capability with raspistill
 - Add timelapse capability with raspistill
 - Add video capability with raspivid
-- Add email alerts/notifications
-- Add SMS alerts/notifications
+- Add email alerts/notifications (Django emails)
+- Add SMS alerts/notifications (Twilio)
 
 
 Author
