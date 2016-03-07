@@ -26,7 +26,7 @@ class StreamTools(object):
                 camera.resolution = (640, 480)
                 camera.framerate = 24
                 # Start a preview and let the camera warm up for 2 sec
-                camera.start_preview()
+                # camera.start_preview()
                 time.sleep(2)
                 # Start video recording
                 camera.start_recording(connection, format=self.stream_type)

@@ -12,5 +12,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^monitoring/', include('monitoring.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin-only/', admin.site.urls, name='admin'),
 ]
