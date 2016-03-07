@@ -19,6 +19,10 @@ def validate_only_one_instance(object):
 #
 
 class Camera(models.Model):
+    """
+    Model for Camera.
+    """
+
     CAMERA_TYPES=(
         ('Pi', 'Pi Camera'),
     )
@@ -38,9 +42,7 @@ class Camera(models.Model):
         return u'%s' % (self.name)
 
     def clean(self):
-        """
-        Only allow one instance of Camera model.
-        """
+        # Only allow one instance of Camera model
         validate_only_one_instance(self)
 
     def save(self, *args, **kwargs):
@@ -52,6 +54,10 @@ class Camera(models.Model):
 
 
 class CameraSettings(models.Model):
+    """
+    Model for Camera Settings.
+    """
+
     sharpness = models.IntegerField(
         default=0,
         validators=[
@@ -138,9 +144,7 @@ class CameraSettings(models.Model):
     )
 
     def clean(self):
-        """
-        Only allow one instance of CameraSettings model.
-        """
+        # Only allow one instance of CameraSettings model
         validate_only_one_instance(self)
 
     def save(self, *args, **kwargs):
@@ -153,6 +157,10 @@ class CameraSettings(models.Model):
 #
 
 class TemperatureSensor(models.Model):
+    """
+    Model for Temperature Sensor.
+    """
+
     TEMP_SENSOR_TYPES=(
         ('D11', 'DHT11'),
         ('D22', 'DHT22'),
@@ -173,9 +181,7 @@ class TemperatureSensor(models.Model):
         return u'%s' % (self.name)
 
     def clean(self):
-        """
-        Only allow one instance of TemperatureSensor model.
-        """
+        # Only allow one instance of TemperatureSensor model
         validate_only_one_instance(self)
 
     def save(self, *args, **kwargs):
@@ -187,6 +193,10 @@ class TemperatureSensor(models.Model):
 
 
 class TemperatureSensorSettings(models.Model):
+    """
+    Model for Temperature Sensor Settings.
+    """
+
     MEASUREMENT_TYPES=(
         ('F', 'Fahrenheit'),
         ('C', 'Celsius'),
@@ -197,9 +207,7 @@ class TemperatureSensorSettings(models.Model):
     )
 
     def clean(self):
-        """
-        Only allow one instance of TemperatureSensorSettings model.
-        """
+        # Only allow one instance of TemperatureSensorSettings model
         validate_only_one_instance(self)
 
     def save(self, *args, **kwargs):
@@ -212,6 +220,10 @@ class TemperatureSensorSettings(models.Model):
 #
 
 class HumiditySensor(models.Model):
+    """
+    Model for Humidity Sensor.
+    """
+
     HUMID_SENSOR_TYPES=(
         ('D11', 'DHT11'),
         ('D22', 'DHT22'),
@@ -232,9 +244,7 @@ class HumiditySensor(models.Model):
         return u'%s' % (self.name)
 
     def clean(self):
-        """
-        Only allow one instance of HumiditySensor model.
-        """
+        # Only allow one instance of HumiditySensor model
         validate_only_one_instance(self)
 
     def save(self, *args, **kwargs):
@@ -242,4 +252,46 @@ class HumiditySensor(models.Model):
         self.full_clean()
         if not self.name:
             self.name = 'HumiditySensor' + str(self.id)
+            self.save()
+
+
+class TimelapseSettings(models.Model):
+    """
+    Model for Timelapse Settings.
+    """
+
+    name = models.CharField(
+        max_length=30,
+        blank=False
+    )
+    enabled = models.BooleanField(
+        default=False
+    )
+    interval = models.IntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(1000)
+        ]
+    )
+    duration = models.IntegerField(
+        default=0,
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(1000)
+        ]
+    )
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
+    def clean(self):
+        # Only allow one instance of TimelapseSettings model
+        validate_only_one_instance(self)
+
+    def save(self, *args, **kwargs):
+        super(Camera, self).save(*args, **kwargs)
+        self.full_clean()
+        if not self.name:
+            self.name = 'Timelapse ' + str(self.id)
             self.save()
