@@ -12,14 +12,14 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Load secret variables from secrets.py (.gitignore)
+# Load sensitive variables from secrets.py (.gitignore)
 from secrets import *
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-### Sensitive credential in secrets.py
+### Sensitive variable in secrets.py
 # SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
