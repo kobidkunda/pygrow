@@ -103,3 +103,10 @@ class CameraTools(object):
             time.sleep(int(duration))
             # Stop video recording
             camera.stop_recording()
+
+    def overlay_text():
+        # http://picamera.readthedocs.org/en/release-1.10/recipes1.html#overlaying-text-on-the-output
+        # camera.annotate_text = 'PyGrow'
+
+        # TODO: Add ability to overlay text or a timestamp
+        pass
