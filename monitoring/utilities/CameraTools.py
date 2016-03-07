@@ -1,7 +1,8 @@
 import time
 import subprocess
 import picamera
-import RPi.GPIO as GPIO
+# Use to ensure Pi Camera LED is off
+# import RPi.GPIO as GPIO
 
 
 class CameraTools(object):
@@ -70,6 +71,7 @@ class CameraTools(object):
         # cmd = self.video_cmd + \
         #     ' -o' \
         #     self.video_path
+        # subprocess.call(cmd, shell=True)
         camera = picamera.PiCamera()
         # Set filename for video
         camera.start_recording(self.video_path + 'video_' + self.timestamp + self.video_format)
