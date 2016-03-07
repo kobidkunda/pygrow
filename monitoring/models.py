@@ -10,7 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Camera(models.Model):
     CAMERA_TYPES=(
-        ('PI', 'Raspberry Pi'),
+        ('Pi', 'Pi Camera'),
     )
     type = models.CharField(
         choices=CAMERA_TYPES,

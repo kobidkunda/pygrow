@@ -1,0 +1,41 @@
+- model: monitoring.Camera
+  pk: 1
+  fields:
+    type: Raspberry Pi
+    name: Camera 1
+    enabled: True
+
+- model: monitoring.CameraSettings
+  pk: 1
+  fields:
+    sharpness: 0
+    contrast: 0
+    brightness: 0
+    saturation: 0
+    iso: 100
+    video_stabilization: True
+    exposure_compensation: 0
+    exposure_mode: Auto
+    white_balance: Auto
+    rotation: 0
+    image_quality: 85
+    video_bitrate: 17000000
+
+- model: monitoring.TemperatureSensor
+  pk: 1
+  fields:
+    type: DHT11
+    name: Temperature Sensor 1
+    enabled: True
+
+- model: monitoring.TemperatureSensorSettings
+  pk: 1
+  fields:
+    measurement_type: Fahrenheit
+
+- model: monitoring.HumiditySensor
+  pk: 1
+  fields:
+    type: DHT11
+    name: Humidity Sensor 1
+    enabled: True
