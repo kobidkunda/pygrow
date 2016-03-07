@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^temperature/$', views.TemperatureView.as_view(), name='temperature'),
     url(r'^humidity/$', views.HumidityView.as_view(), name='humidity'),
 
+    # url(r'^jobs/$', views.JobsView.as_view(), name='jobs'),
+
     url(r'^settings/$', views.SettingsView.as_view(), name='settings'),
 ]
