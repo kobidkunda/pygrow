@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils import timezone
 
 
 def validate_only_one_instance(object):
@@ -21,6 +22,9 @@ def validate_only_one_instance(object):
 class Camera(models.Model):
     """
     Model for Camera.
+    - type
+    - name
+    - enabled
     """
 
     CAMERA_TYPES=(
@@ -56,6 +60,18 @@ class Camera(models.Model):
 class CameraSettings(models.Model):
     """
     Model for Camera Settings.
+    - sharpness
+    - contrast
+    - brightness
+    - saturation
+    - iso
+    - video_stabilization
+    - exposure_compensation
+    - exposure_mode
+    - white_balance
+    - rotation
+    - image_quality
+    - video_bitrate
     """
 
     sharpness = models.IntegerField(
@@ -153,12 +169,15 @@ class CameraSettings(models.Model):
         self.save()
 
 #
-### Temperature Sensor and Temperature Settings
+### Temperature Sensor, Settings, and Readings
 #
 
 class TemperatureSensor(models.Model):
     """
     Model for Temperature Sensor.
+    - type
+    - name
+    - enabled
     """
 
     TEMP_SENSOR_TYPES=(
@@ -195,6 +214,7 @@ class TemperatureSensor(models.Model):
 class TemperatureSensorSettings(models.Model):
     """
     Model for Temperature Sensor Settings.
+    - measurement_type
     """
 
     MEASUREMENT_TYPES=(
@@ -215,13 +235,44 @@ class TemperatureSensorSettings(models.Model):
         self.full_clean()
         self.save()
 
+
+class TemperatureReading(models.Model):
+    """
+    Model for Temperature Reading.
+    - measurement_type
+    - timestamp
+    - value
+    """
+
+    MEASUREMENT_TYPES=(
+        ('F', 'Fahrenheit'),
+        ('C', 'Celsius'),
+    )
+    measurement_type = models.CharField(
+        choices=MEASUREMENT_TYPES,
+        max_length=1
+    )
+    timestamp = models.DateTimeField(
+        default=timezone.now
+    )
+    value = models.IntegerField(
+        validators=[
+            MinValueValidator(-150),
+            MaxValueValidator(150)
+        ]
+    )
+
+
 #
-### Humidity Sensor and Humidity Settings
+### Humidity Sensor, Settings, and Readings
 #
 
 class HumiditySensor(models.Model):
     """
     Model for Humidity Sensor.
+    - type
+    - name
+    - enabled
     """
 
     HUMID_SENSOR_TYPES=(
@@ -255,9 +306,31 @@ class HumiditySensor(models.Model):
             self.save()
 
 
+class HumidityReading(models.Model):
+    """
+    Model for Humidity Reading.
+    - timestamp
+    - value
+    """
+
+    timestamp = models.DateTimeField(
+        default=timezone.now
+    )
+    value = models.IntegerField(
+        validators=[
+            MinValueValidator(-150),
+            MaxValueValidator(150)
+        ]
+    )
+
+
 class TimelapseSettings(models.Model):
     """
     Model for Timelapse Settings.
+    - name
+    - enabled
+    - interval
+    - duration
     """
 
     name = models.CharField(
