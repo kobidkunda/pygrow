@@ -1,6 +1,7 @@
 import time
 import subprocess
 import picamera
+from django.conf import settings
 # Use to ensure Pi Camera LED is off
 # import RPi.GPIO as GPIO
 
@@ -34,11 +35,11 @@ class CameraTools(object):
         self.type = 'Pi'
         # Pi Camera Photo options
         self.photo_cmd = 'raspistill'
-        self.photo_path = BASE_DIR + '/photos/'
+        self.photo_path = settings.BASE_DIR + '/photos/'
         self.photo_format = '.png'
         # Pi Camera Video options
         self.video_cmd = 'raspivid'
-        self.video_path = BASE_DIR + '/videos/'
+        self.video_path = settings.BASE_DIR + '/videos/'
         self.video_format = '.h264'
         # Timestamp format for photos and videos
         self.timestamp = time.strftime('%Y-%m-%d_%H%M%S')

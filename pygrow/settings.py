@@ -15,6 +15,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Load sensitive variables from secrets.py (.gitignore)
 from secrets import *
 
+### Sensitive variable in secrets.py
+# PYGROW_SERVER_IP = ''
+
+### Sensitive variable in secrets.py
+# PYGROW_STREAM_PORT = ''
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
