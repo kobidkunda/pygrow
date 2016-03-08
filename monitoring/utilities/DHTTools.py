@@ -43,7 +43,7 @@ class DHTTools(object):
         GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         # 501 times
-        for i in range(0,500):
+        for i in range(0, 500):
             # Read a bit from the GPIO, as fast as possible (no wait)
             data.append(GPIO.input(4))
 
@@ -84,7 +84,7 @@ class DHTTools(object):
                     # If we're in the 1st byte
                     if i >= 0 and i < 8:
                         # Append a 1 to the humidity bitstring
-                        humidity_bit = humidity_bit + "1"
+                        humidity_bit = humidity_bit + '1'
                     # If we're in the 3rd byte
                     if i >= 16 and i < 24:
                         # Append a 1 to the temperature bitstring
