@@ -1,5 +1,6 @@
 from django.conf import settings
 from django_cron import CronJobBase, Schedule
+from .utilities import DHTTools
 
 
 class DHTReaderCronJob(CronJobBase):
