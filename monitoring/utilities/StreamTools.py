@@ -23,11 +23,16 @@ class StreamTools(object):
             camera.framerate = 24
 
             # Create socket on server:port (localhost:7777)
-            server_socket = socket.socket()
+            # server_socket = socket.socket()
+
+            # socket.AF_INET is IPV4
+            # socket.SOCK_STREAM is TCP
+            server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server_socket.bind((self.stream_server, self.stream_port))
-            server_socket.listen(0)
+            server_socket.listen(1)
 
             # Accept a single connection and make a file-like object out of it
+            # connection, address = server_socket.accept()[0].makefile('wb')
             connection = server_socket.accept()[0].makefile('wb')
             try:
                 # Start video recording
