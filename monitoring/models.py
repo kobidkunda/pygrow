@@ -34,9 +34,17 @@ class Camera(models.Model):
         choices=CAMERA_TYPES,
         max_length=1
     )
+    # name = models.CharField(
+    #     max_length=30,
+    #     blank=True,
+    #     null=True,
+    #     default=None
+    # )
     name = models.CharField(
         max_length=30,
-        blank=False
+        blank=False,
+        null=True,
+        default=None
     )
     enabled = models.BooleanField(
         default=False
@@ -186,8 +194,8 @@ class TemperatureSensor(models.Model):
     """
 
     TEMP_SENSOR_TYPES=(
-        ('D11', 'DHT11'),
-        ('D22', 'DHT22'),
+        ('DHT11', 'DHT11'),
+        ('DHT22', 'DHT22'),
     )
     type = models.CharField(
         choices=TEMP_SENSOR_TYPES,
@@ -324,6 +332,7 @@ class HumiditySensor(models.Model):
 class HumidityReading(models.Model):
     """
     Model for Humidity Reading.
+    - humidity_sensor (FK)
     - timestamp
     - value
     """
@@ -346,6 +355,7 @@ class HumidityReading(models.Model):
 class TimelapseSettings(models.Model):
     """
     Model for Timelapse Settings.
+    - camera (FK)
     - name
     - enabled
     - interval
