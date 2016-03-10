@@ -70,14 +70,17 @@ class CameraTools(object):
 
         # camera.resolution = (1280, 720)
         # camera.framerate = 30
+
         # Wait for the automatic gain control to settle
         # time.sleep(2)
+
         # Now fix the values
         # camera.shutter_speed = camera.exposure_speed
         # camera.exposure_mode = 'off'
         # g = camera.awb_gains
         # camera.awb_mode = 'off'
         # camera.awb_gains = g
+
         # Finally, take several photos with the fixed settings
         # camera.capture_sequence(['image%02d.jpg' % i for i in range(10)])
 
@@ -106,9 +109,7 @@ class CameraTools(object):
             # Stop video recording
             camera.stop_recording()
 
-    def overlay_text():
+    def overlay_text(self, text):
         # http://picamera.readthedocs.org/en/release-1.10/recipes1.html#overlaying-text-on-the-output
-        # camera.annotate_text = 'PyGrow'
-
         # TODO: Add ability to overlay text or a timestamp
-        pass
+        camera.annotate_text = str(text)

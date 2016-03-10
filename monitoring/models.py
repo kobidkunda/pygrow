@@ -371,7 +371,7 @@ class TimelapseSettings(models.Model):
 
 
 #
-### Email Alerts
+### Email Alerts and Photos
 #
 
 class EmailAlert(models.Model):
