@@ -60,6 +60,7 @@ class Camera(models.Model):
 class CameraSettings(models.Model):
     """
     Model for Camera Settings.
+    - camera (FK)
     - sharpness
     - contrast
     - brightness
@@ -74,6 +75,10 @@ class CameraSettings(models.Model):
     - video_bitrate
     """
 
+    camera = models.ForeignKey(
+        'Camera', related_name='+',
+        blank=True, null=True, default=None
+    )
     sharpness = models.IntegerField(
         default=0,
         validators=[
@@ -214,9 +219,14 @@ class TemperatureSensor(models.Model):
 class TemperatureSensorSettings(models.Model):
     """
     Model for Temperature Sensor Settings.
+    - temperature_sensor (FK)
     - measurement_type
     """
 
+    temperature_sensor = models.ForeignKey(
+        'TemperatureSensor', related_name='+',
+        blank=True, null=True, default=None
+    )
     MEASUREMENT_TYPES=(
         ('F', 'Fahrenheit'),
         ('C', 'Celsius'),
@@ -239,11 +249,16 @@ class TemperatureSensorSettings(models.Model):
 class TemperatureReading(models.Model):
     """
     Model for Temperature Reading.
+    - temperature_sensor (FK)
     - measurement_type
     - timestamp
     - value
     """
 
+    temperature_sensor = models.ForeignKey(
+        'TemperatureSensor', related_name='+',
+        blank=True, null=True, default=None
+    )
     MEASUREMENT_TYPES=(
         ('F', 'Fahrenheit'),
         ('C', 'Celsius'),
@@ -313,6 +328,10 @@ class HumidityReading(models.Model):
     - value
     """
 
+    humidity_sensor = models.ForeignKey(
+        'HumiditySensor', related_name='+',
+        blank=True, null=True, default=None
+    )
     timestamp = models.DateTimeField(
         default=timezone.now
     )
@@ -333,6 +352,10 @@ class TimelapseSettings(models.Model):
     - duration
     """
 
+    camera = models.ForeignKey(
+        'Camera', related_name='+',
+        blank=True, null=True, default=None
+    )
     name = models.CharField(
         max_length=30,
         blank=False
