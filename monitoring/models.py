@@ -368,3 +368,72 @@ class TimelapseSettings(models.Model):
         if not self.name:
             self.name = 'Timelapse ' + str(self.id)
             self.save()
+
+
+#
+### Email Alerts
+#
+
+class EmailAlert(models.Model):
+    """
+    Model for Email Alert.
+    - timestamp
+    - end
+    - recipient
+    - include_photo
+    - min_temperature
+    - max_temperature
+    - min_humidity
+    - max_humidity
+    """
+
+    timestamp = models.DateTimeField(
+        default=timezone.now
+    )
+    end = models.DateTimeField()
+    recipient = models.EmailField()
+    include_photo = models.BooleanField()
+    min_temperature = models.IntegerField(
+        validators=[
+            MinValueValidator(-150),
+            MaxValueValidator(150)
+        ]
+    )
+    max_temperature = models.IntegerField(
+        validators=[
+            MinValueValidator(-150),
+            MaxValueValidator(150)
+        ]
+    )
+    min_humidity = models.IntegerField(
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
+    max_humidity = models.IntegerField(
+        validators=[
+            MinValueValidator(0),
+            MaxValueValidator(100)
+        ]
+    )
+
+
+class EmailPhoto(models.Model):
+    """
+    Model for Email Photo.
+    - timestamp
+    - end
+    - frequency
+    """
+
+    timestamp = models.DateTimeField(
+        default=timezone.now
+    )
+    end = models.DateTimeField()
+    frequency = models.IntegerField(
+        validators=[
+            MinValueValidator(-150),
+            MaxValueValidator(150)
+        ]
+    )
