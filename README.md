@@ -1,7 +1,7 @@
 PyGrow
 ======
 
-A Python project using [Django](https://www.djangoproject.com) to monitor an environment with a Raspberry Pi using a Pi Camera and DHT temperature/humidity sensor. Alerts can be received via email or SMS.
+A Python project using [Django](https://www.djangoproject.com) to monitor an environment with a Raspberry Pi using a Pi Camera and DHT temperature/humidity sensor. Alerts and photo updates can be received via email or SMS.
 
 
 Features
@@ -65,6 +65,8 @@ To Do
 - Add email alerts/notifications (Django emails)
 - Add SMS alerts/notifications (Twilio)
 - Add scheduled photos by email
+- Add image viewer for photos
+- Add media player for videos
 
 
 Author
