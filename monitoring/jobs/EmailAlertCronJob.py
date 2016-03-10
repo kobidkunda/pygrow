@@ -1,5 +1,5 @@
 from django.conf import settings
-from django_common.helper import send_mail
+from django.core.mail import EmailMessage
 from django_cron import CronJobBase, Schedule
 
 
@@ -13,19 +13,28 @@ class EmailAlertCronJob(CronJobBase):
     schedule = Schedule(run_every_mins=RUN_INTERVAL)
     code = 'cron.EmailAlertCronJob'
 
+    # Check EmailAlert model for value
+    include_photo = True
+
     def do(self):
         job_timestamp = time.strftime('%D %H:%M:%S')
         message = 'PyGrow alert at %s.' % job_timestamp
 
-        # Send email
-        send_mail(
+        # Create email message
+        email = EmailMessage(
             # Subject
-            '[PyGrow] Photo update',
+            '[PyGrow] Alert',
             # Message
             message,
             # Sender
             'from@example.com',
             # Recipient
             ['to@example.com'],
-            fail_silently=False
         )
+
+        if include_photo == True:
+            # Attach file
+            email.attach_file('/pygrow/photos/%s.png')
+
+        # Send email
+        email.send(fail_silently=False)
