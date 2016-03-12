@@ -65,6 +65,8 @@ To Do
 - Add email alerts/notifications (Django emails)
 - Add SMS alerts/notifications (Twilio)
 - Add scheduled photos by email
+- Add temperature graph
+- Add humidity graph
 - Add image viewer for photos
 - Add media player for videos
 
