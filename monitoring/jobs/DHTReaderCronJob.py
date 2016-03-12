@@ -18,7 +18,7 @@ class DHTReaderCronJob(CronJobBase):
         # TODO: Check if DHT sensor is enabled
         reading = DHTTools.read_sensor()
 
-        print (reading)
+        print(reading)
 
         temperature = reading['temperature']
         humidity = reading['humidity']
