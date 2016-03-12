@@ -1,6 +1,7 @@
 from django.conf import settings
 from django_cron import CronJobBase, Schedule
 from .utilities import DHTTools
+from monitoring.models import TemperatureReading, HumidityReading
 
 
 class DHTReaderCronJob(CronJobBase):
@@ -16,5 +17,12 @@ class DHTReaderCronJob(CronJobBase):
     def do(self):
         # TODO: Check if DHT sensor is enabled
         reading = DHTTools.read_sensor()
+
+        print (reading)
+
+        temperature = reading['temperature']
+        humidity = reading['humidity']
+        timestamp = reading['timestamp']
+
         # TODO: Save reading to database
         print(reading)
