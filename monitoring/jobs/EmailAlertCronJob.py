@@ -37,9 +37,13 @@ class EmailAlertCronJob(CronJobBase):
             # Attach file
             email.attach_file('/pygrow/photos/%s.png')
 
+        # Send email
+        email.send(fail_silently=False)
+
         # Save EmailAlert to database
         email_alert = EmailAlert()
         email_alert.timestamp = job_timestamp
+        # email_alert.end = end
         # email_alert.recipient = recipient
         email_alert.include_photo = include_photo
         # email_alert.min_temperature = min_temperature
@@ -47,6 +51,3 @@ class EmailAlertCronJob(CronJobBase):
         # email_alert.min_humidity = min_humidity
         # email_alert.max_humidity = max_humidity
         email_alert.save()
-
-        # Send email
-        email.send(fail_silently=False)
