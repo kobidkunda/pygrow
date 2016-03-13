@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django_cron import CronJobBase, Schedule
+from monitoring.models import EmailAlert
 
 
 class EmailAlertCronJob(CronJobBase):
@@ -35,6 +36,17 @@ class EmailAlertCronJob(CronJobBase):
         if include_photo == True:
             # Attach file
             email.attach_file('/pygrow/photos/%s.png')
+
+        # Save EmailAlert to database
+        email_alert = EmailAlert()
+        email_alert.timestamp = job_timestamp
+        # email_alert.recipient = recipient
+        email_alert.include_photo = include_photo
+        # email_alert.min_temperature = min_temperature
+        # email_alert.max_temperature = max_temperature
+        # email_alert.min_humidity = min_humidity
+        # email_alert.max_humidity = max_humidity
+        email_alert.save()
 
         # Send email
         email.send(fail_silently=False)
