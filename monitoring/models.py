@@ -457,6 +457,7 @@ class EmailPhoto(models.Model):
     Model for Email Photo.
     - timestamp
     - end
+    - recipient
     - frequency
     """
 
@@ -464,6 +465,7 @@ class EmailPhoto(models.Model):
         default=timezone.now
     )
     end = models.DateTimeField()
+    recipient = models.EmailField()
     frequency = models.IntegerField(
         validators=[
             MinValueValidator(-150),
