@@ -36,3 +36,11 @@ class EmailPhotoCronJob(CronJobBase):
 
         # Send email
         email.send(fail_silently=False)
+
+        # Save EmailAlert to database
+        email_photo = EmailPhoto()
+        email_photo.timestamp = job_timestamp
+        # email_photo.end = end
+        # email_photo.recipient = recipient
+        # email_photo.frequency = frequency
+        email_photo.save()
