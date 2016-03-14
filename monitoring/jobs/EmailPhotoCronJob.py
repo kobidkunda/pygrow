@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django_cron import CronJobBase, Schedule
+from monitoring.models import EmailPhoto
 
 
 class EmailPhotoCronJob(CronJobBase):
