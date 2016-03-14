@@ -227,11 +227,11 @@ class TemperatureSensor(models.Model):
 class TemperatureSensorSettings(models.Model):
     """
     Model for Temperature Sensor Settings.
-    - temperature_sensor (FK)
+    - sensor (FK)
     - measurement_type
     """
 
-    temperature_sensor = models.ForeignKey(
+    sensor = models.ForeignKey(
         'TemperatureSensor', related_name='+',
         blank=True, null=True, default=None
     )
@@ -257,13 +257,13 @@ class TemperatureSensorSettings(models.Model):
 class TemperatureReading(models.Model):
     """
     Model for Temperature Reading.
-    - temperature_sensor (FK)
+    - sensor (FK)
     - measurement_type
     - timestamp
     - value
     """
 
-    temperature_sensor = models.ForeignKey(
+    sensor = models.ForeignKey(
         'TemperatureSensor', related_name='+',
         blank=True, null=True, default=None
     )
@@ -332,12 +332,12 @@ class HumiditySensor(models.Model):
 class HumidityReading(models.Model):
     """
     Model for Humidity Reading.
-    - humidity_sensor (FK)
+    - sensor (FK)
     - timestamp
     - value
     """
 
-    humidity_sensor = models.ForeignKey(
+    sensor = models.ForeignKey(
         'HumiditySensor', related_name='+',
         blank=True, null=True, default=None
     )
