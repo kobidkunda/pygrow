@@ -20,9 +20,13 @@ class DHTReaderCronJob(CronJobBase):
 
         print(reading)
 
-        temperature = reading['temperature']
-        humidity = reading['humidity']
-        timestamp = reading['timestamp']
+        # Save TemperatureReading to database
+        temperature = TemperatureReading()
+        # temperature.sensor = sensor
+        # temperature.measurement_type = measurement_type
+        temperature.timestamp = reading['timestamp']
+        temperature.value = reading['temperature']
+        temperature.save()
 
         # TODO: Save reading to database
         print(reading)
